@@ -13,6 +13,7 @@ textarea{margin-top:10px;width:100%;min-height:130px}
 code{font-size:.85em;background:#0e1529;padding:3px 6px;border-radius:6px;display:inline-block}
 
 #tutorial-overlay{position:fixed;inset:0;background:rgba(7,11,24,.92);display:grid;place-items:center;padding:18px;z-index:50}
+#tutorial-overlay.hidden{display:none}
 .tutorial-card{max-width:820px;width:100%}
 .tutorial-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:10px}
 .progress-track{flex:1;height:8px;background:#1e2745;border-radius:999px;overflow:hidden}

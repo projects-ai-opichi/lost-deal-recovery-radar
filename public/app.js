@@ -84,7 +84,7 @@ function tutorialNext() {
     currentStep++;
     renderTutorialStep();
   } else {
-    closeTutorial();
+    loadDemo();
   }
 }
 
