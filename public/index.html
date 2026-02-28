@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lost Deal Recovery Radar</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Lost Deal Recovery Radar</h1>
+    <p>Tutorial MVP: prove hidden referral revenue loss in <strong>5 minutes</strong>.</p>
+  </header>
+
+  <main class="container">
+    <section class="card" id="tutorial">
+      <h2>Leadership Walkthrough</h2>
+      <ol id="steps">
+        <li class="active"><strong>1. Problem:</strong> referral attrition is invisible until revenue drops.</li>
+        <li><strong>2. Inputs:</strong> upload partner history (last vs prior 90 days, recency, response).</li>
+        <li><strong>3. Scoring:</strong> risk model ranks partners likely to churn.</li>
+        <li><strong>4. Action:</strong> win-back list + recommended outreach by urgency.</li>
+        <li><strong>5. ROI:</strong> estimate recoverable quarterly revenue.</li>
+      </ol>
+      <button id="nextStep">Next tutorial step</button>
+    </section>
+
+    <section class="card">
+      <h2>Data</h2>
+      <p>Use demo data for instant value, or upload CSV with headers:
+        <code>partner_name,deals_last_90d,deals_prior_90d,avg_deal_value,days_since_last_deal,response_rate,partner_tenure_months</code>
+      </p>
+      <div class="row">
+        <button id="loadDemo">Load Demo Dataset</button>
+        <input type="file" id="csvFile" accept=".csv" />
+        <button id="uploadCsv">Upload CSV</button>
+      </div>
+    </section>
+
+    <section class="grid" id="summary"></section>
+
+    <section class="card">
+      <h2>At-Risk Partner Leaderboard</h2>
+      <table id="partnersTable">
+        <thead>
+          <tr>
+            <th>Partner</th><th>Risk</th><th>Tier</th><th>Est. Lost Revenue</th><th>Recommended Action</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
