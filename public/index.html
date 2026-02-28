@@ -12,45 +12,86 @@
     <p>Tutorial MVP: prove hidden referral revenue loss in <strong>5 minutes</strong>.</p>
   </header>
 
-  <main class="container">
-    <section class="card" id="tutorial">
-      <h2>Leadership Walkthrough</h2>
-      <ol id="steps">
-        <li class="active"><strong>1. Problem:</strong> referral attrition is invisible until revenue drops.</li>
-        <li><strong>2. Inputs:</strong> upload partner history (last vs prior 90 days, recency, response).</li>
-        <li><strong>3. Scoring:</strong> risk model ranks partners likely to churn.</li>
-        <li><strong>4. Action:</strong> win-back list + recommended outreach by urgency.</li>
-        <li><strong>5. ROI:</strong> estimate recoverable quarterly revenue.</li>
-      </ol>
-      <button id="nextStep">Next tutorial step</button>
-    </section>
-
-    <section class="card">
-      <h2>Data</h2>
-      <p>Use demo data for instant value, or upload CSV with headers:
-        <code>partner_name,deals_last_90d,deals_prior_90d,avg_deal_value,days_since_last_deal,response_rate,partner_tenure_months</code>
-      </p>
-      <div class="row">
-        <button id="loadDemo">Load Demo Dataset</button>
-        <input type="file" id="csvFile" accept=".csv" />
-        <button id="uploadCsv">Upload CSV</button>
+  <main id="app" class="container hidden">
+    <section class="card" id="upload-section">
+      <div class="row between">
+        <h2>Data</h2>
+        <button class="btn" onclick="showTutorial()">View Tutorial Again</button>
       </div>
+      <p>Use demo data for instant value, or upload CSV with headers:</p>
+      <code>partner_name,deals_last_90d,deals_prior_90d,avg_deal_value,days_since_last_deal,response_rate,partner_tenure_months</code>
+      <div class="row" style="margin-top:12px">
+        <button class="btn btn-primary" onclick="loadDemo()">Load Demo Dataset</button>
+        <input type="file" id="csvFile" accept=".csv" onchange="if(this.files[0]) handleFile(this.files[0])" />
+        <button class="btn btn-primary" onclick="analyzeCSV()">Upload CSV</button>
+      </div>
+      <textarea id="csv-paste" placeholder="Or paste CSV data here..."></textarea>
     </section>
 
-    <section class="grid" id="summary"></section>
+    <section id="dashboard" class="hidden">
+      <section class="grid" id="kpi-grid"></section>
 
-    <section class="card">
-      <h2>At-Risk Partner Leaderboard</h2>
-      <table id="partnersTable">
-        <thead>
-          <tr>
-            <th>Partner</th><th>Risk</th><th>Tier</th><th>Est. Lost Revenue</th><th>Recommended Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <section class="card">
+        <h2>Risk Distribution</h2>
+        <div id="risk-bars"></div>
+      </section>
+
+      <section class="card">
+        <div class="row between leaderboard-head">
+          <h2>At-Risk Partner Leaderboard</h2>
+          <div class="row filter-row">
+            <button class="filter-btn active" onclick="filterTable('all', this)">All</button>
+            <button class="filter-btn" onclick="filterTable('critical', this)">Critical</button>
+            <button class="filter-btn" onclick="filterTable('high', this)">High</button>
+            <button class="filter-btn" onclick="filterTable('medium', this)">Medium</button>
+            <button class="filter-btn" onclick="filterTable('low', this)">Low</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Partner</th>
+              <th>Risk</th>
+              <th>Tier</th>
+              <th>Last 90d</th>
+              <th>Prior 90d</th>
+              <th>Avg Deal</th>
+              <th>Recency</th>
+              <th>Est. Lost Revenue</th>
+              <th>Recommended Action</th>
+            </tr>
+          </thead>
+          <tbody id="partner-tbody"></tbody>
+        </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Prioritized Win-Back List</h2>
+        <div id="winback-list"></div>
+      </section>
+
+      <section class="card">
+        <h2>ROI Scenarios</h2>
+        <div class="grid" id="roi-grid"></div>
+      </section>
     </section>
   </main>
+
+  <div id="tutorial-overlay">
+    <section class="card tutorial-card">
+      <div class="tutorial-top">
+        <div class="progress-track"><div id="tutorial-progress-bar"></div></div>
+        <span id="step-indicator"></span>
+      </div>
+      <div id="tutorial-content"></div>
+      <div class="row between" style="margin-top:12px">
+        <button id="tutorial-back" class="btn" onclick="tutorialBack()">← Back</button>
+        <button id="tutorial-next" class="btn btn-primary" onclick="tutorialNext()">Next →</button>
+      </div>
+    </section>
+  </div>
 
   <script src="/app.js"></script>
 </body>
